@@ -1,0 +1,104 @@
+CREATE TABLE rol (id_rol int PRIMARY KEY NOT NULL,
+                 nombre_rol varchar (30));
+                 
+CREATE TABLE usuarios(id_usuario int PRIMARY KEY NOT NULL,
+                     nick_name varchar (19),
+                     nombre_usuario varchar (50),
+                     telefono_usuario varchar (15),
+                     direccion_usuario varchar (100),
+                     contraseña varchar(32));
+
+CREATE TABLE marcas (id_marca int PRIMARY KEY NOT NULL,
+					   nombre_marca varchar (60));
+
+CREATE TABLE calidad (id_calidad INT PRIMARY KEY NOT NULL,
+                    			  descripcion_calidad varchar (15));
+
+CREATE TABLE estado (id_estado INT PRIMARY KEY NOT NULL,
+              				nombre_estado varchar (30));
+
+CREATE TABLE municipio (id_municipio INT PRIMARY KEY NOT NULL,
+						nombre_municipio varchar (30));
+
+CREATE TABLE sucursal (id_sucursal INT PRIMARY KEY NOT NULL,
+					    nombre_sucursal varchar (30),
+					    direccion_sucursal varchar (60),
+                        telefono_sucursal varchar (15));
+
+CREATE TABLE proveedores (id_proveedor INT PRIMARY KEY NOT NULL,
+					      nombre_proveedor varchar(30),
+						telefono_proveedor varchar(15));
+
+CREATE TABLE categoria(id_categoria INT PRIMARY KEY NOT NULL,
+					    nombre_categoria varchar (50));
+
+CREATE TABLE productos (id_producto INT PRIMARY KEY NOT NULL,
+                        nombre_producto VARCHAR(30),
+                        img_producto VARCHAR(100),
+                        descripcion_producto VARCHAR(100),
+                        precio_adquisicion FLOAT,
+                        precio_menudeo FLOAT,
+                        precio_mayoreo FLOAT,
+                        precio_vip FLOAT,
+                        color_producto VARCHAR(30),
+                        tipo_producto VARCHAR(30),
+                        id_categoria INT,
+                        id_marca INT,
+                        id_proveedor INT,
+                        id_sucursal INT,
+    CONSTRAINT fk_categoria_producto FOREIGN KEY (id_categoria)
+        REFERENCES categoria(id_categoria) ON DELETE CASCADE,
+    CONSTRAINT fk_marca_producto FOREIGN KEY (id_marca)
+        REFERENCES marcas(id_marca) ON DELETE CASCADE,
+    CONSTRAINT fk_proveedor_producto FOREIGN KEY (id_proveedor)
+        REFERENCES proveedores(id_proveedor) ON DELETE CASCADE,
+    CONSTRAINT fk_sucursal_producto FOREIGN KEY (id_sucursal)
+        REFERENCES sucursal(id_sucursal) ON DELETE CASCADE
+);
+
+CREATE TABLE stock_producto (id_producto int,
+							id_sucursal int,
+                            stock double,
+CONSTRAINT fk_stock_producto FOREIGN KEY (id_producto) REFERENCES producto(id_producto) ON DELETE CASCADE,
+CONSTRAINT fk_stock_sucursal  FOREIGN KEY (id_sucursal) REFERENCES sucursal(id_sucursal) ON DELETE CASCADE,
+CONSTRAINT pk_stock_sucursal_1 PRIMARY KEY (id_usuario, id_rol));
+
+CREATE TABLE rol_usuario (id_usuario int,
+                          id_rol int,
+CONSTRAINT fk_usuario_rol_1 FOREIGN KEY (id_usuario) REFERENCES usuarios(id_usuario) ON DELETE CASCADE,
+CONSTRAINT fk_usuario_rol_2 FOREIGN KEY (id_rol) REFERENCES rol(id_rol) ON DELETE CASCADE,
+CONSTRAINT pk_usuario_rol_1 PRIMARY KEY (id_usuario, id_rol));
+
+CREATE TABLE envios (id_envio int PRIMARY KEY NOT NULL,
+                     tipo_producto varchar(30) NOT NULL, /* Aqui se espesifica el tipo de prodcuto ejemplo; liquido, paquete, agranel etc */
+                     fecha date,
+                     id_usuario int,
+CONSTRAINT fk_envios_usuarios_1 FOREIGN KEY (id_usuario) REFERENCES usuarios(id_usuario) ON DELETE CASCADE);
+
+CREATE TABLE detalle_envios (id_envio int,
+                             id_producto int,
+                             id_sucursal_o int,
+                             id_sucursal_d int,
+                             cantidad FLOAT,
+                             justificacion varchar(50),
+CONSTRAINT fk_detenvios_envio FOREIGN KEY (id_envio) REFERENCES envios(id_envio) ON DELETE CASCADE,
+CONSTRAINT fk_detenvios_porducti FOREIGN KEY (id_producto) REFERENCES productos(id_producto) ON DELETE CASCADE,
+CONSTRAINT fk_detenvios_sucursalo FOREIGN KEY (id_sucursal_o) REFERENCES sucursal(id_sucursal) ON DELETE CASCADE,
+CONSTRAINT fk_detenvios_sucursald FOREIGN KEY (id_sucursal_d) REFERENCES sucursal(id_sucursal) ON DELETE CASCADE,
+CONSTRAINT fpk_detenvios PRIMARY KEY (id_producto, id_envio));
+
+CREATE TABLE venta_productos (id_venta_producto int PRIMARY KEY NOT NULL,
+                             id_usuario int,
+                             fecha date NOT NULL,
+                             nombre_cliente varchar(50),
+                             tipo_comporbante varchar(30));
+
+CREATE TABLE detalle_venta(id_venta_producto int,
+                           id_producto int,
+                           id_sucursal int,
+                           cantidad_articulos int,
+                           precio float,
+CONSTRAINT fk_detventa_venta FOREIGN KEY (id_venta_producto) REFERENCES venta_productos(id_venta_producto)ON DELETE CASCADE,
+CONSTRAINT fk_detventa_prodcuto FOREIGN KEY (id_producto) REFERENCES productos(id_producto)ON DELETE CASCADE,
+CONSTRAINT fk_detventa_sucursal FOREIGN KEY (id_sucursal) REFERENCES sucursal(id_sucursal)ON DELETE CASCADE,
+CONSTRAINT pk_detventa PRIMARY KEY (id_venta_producto, id_producto));
