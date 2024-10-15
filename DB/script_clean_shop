@@ -1,38 +1,41 @@
-CREATE TABLE rol (id_rol int PRIMARY KEY NOT NULL,
+CREATE TABLE rol (id_rol int PRIMARY KEY AUTO_INCREMENT NOT NULL,
                  nombre_rol varchar (30));
                  
-CREATE TABLE usuarios(id_usuario int PRIMARY KEY NOT NULL,
+CREATE TABLE usuarios(id_usuario int PRIMARY KEY AUTO_INCREMENT NOT NULL,
                      nick_name varchar (19),
                      nombre_usuario varchar (50),
                      telefono_usuario varchar (15),
                      direccion_usuario varchar (100),
                      contraseña varchar(32));
 
-CREATE TABLE marcas (id_marca int PRIMARY KEY NOT NULL,
+CREATE TABLE marcas (id_marca int PRIMARY KEY AUTO_INCREMENT NOT NULL,
 					   nombre_marca varchar (60));
 
-CREATE TABLE calidad (id_calidad INT PRIMARY KEY NOT NULL,
+CREATE TABLE calidad (id_calidad INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
                     			  descripcion_calidad varchar (15));
 
-CREATE TABLE estado (id_estado INT PRIMARY KEY NOT NULL,
+CREATE TABLE estado (id_estado INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
               				nombre_estado varchar (30));
 
-CREATE TABLE municipio (id_municipio INT PRIMARY KEY NOT NULL,
+CREATE TABLE municipio (id_municipio INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
 						nombre_municipio varchar (30));
 
-CREATE TABLE sucursal (id_sucursal INT PRIMARY KEY NOT NULL,
+CREATE TABLE sucursal (id_sucursal INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
 					    nombre_sucursal varchar (30),
 					    direccion_sucursal varchar (60),
-                        telefono_sucursal varchar (15));
+                        telefono_sucursal varchar (15),
+                        id_municipio int
+        CONSTRAINT fk_sucursal_muni1 FOREIGN KEY (id_municipio) 
+        REFERENCES municipio(id_municipio) ON DELETE CASCADE,);
 
-CREATE TABLE proveedores (id_proveedor INT PRIMARY KEY NOT NULL,
+CREATE TABLE proveedores (id_proveedor INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
 					      nombre_proveedor varchar(30),
 						telefono_proveedor varchar(15));
 
-CREATE TABLE categoria(id_categoria INT PRIMARY KEY NOT NULL,
+CREATE TABLE categoria(id_categoria INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
 					    nombre_categoria varchar (50));
 
-CREATE TABLE productos (id_producto INT PRIMARY KEY NOT NULL,
+CREATE TABLE productos (id_producto INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
                         nombre_producto VARCHAR(30),
                         img_producto VARCHAR(100),
                         descripcion_producto VARCHAR(100),
@@ -59,9 +62,9 @@ CREATE TABLE productos (id_producto INT PRIMARY KEY NOT NULL,
 CREATE TABLE stock_producto (id_producto int,
 							id_sucursal int,
                             stock double,
-CONSTRAINT fk_stock_producto FOREIGN KEY (id_producto) REFERENCES producto(id_producto) ON DELETE CASCADE,
+CONSTRAINT fk_stock_producto FOREIGN KEY (id_producto) REFERENCES productos(id_producto) ON DELETE CASCADE,
 CONSTRAINT fk_stock_sucursal  FOREIGN KEY (id_sucursal) REFERENCES sucursal(id_sucursal) ON DELETE CASCADE,
-CONSTRAINT pk_stock_sucursal_1 PRIMARY KEY (id_usuario, id_rol));
+CONSTRAINT pk_stock_sucursal_1 PRIMARY KEY (id_sucursal, id_producto));
 
 CREATE TABLE rol_usuario (id_usuario int,
                           id_rol int,
@@ -69,7 +72,7 @@ CONSTRAINT fk_usuario_rol_1 FOREIGN KEY (id_usuario) REFERENCES usuarios(id_usua
 CONSTRAINT fk_usuario_rol_2 FOREIGN KEY (id_rol) REFERENCES rol(id_rol) ON DELETE CASCADE,
 CONSTRAINT pk_usuario_rol_1 PRIMARY KEY (id_usuario, id_rol));
 
-CREATE TABLE envios (id_envio int PRIMARY KEY NOT NULL,
+CREATE TABLE envios (id_envio int PRIMARY KEY AUTO_INCREMENT NOT NULL,
                      tipo_producto varchar(30) NOT NULL, /* Aqui se espesifica el tipo de prodcuto ejemplo; liquido, paquete, agranel etc */
                      fecha date,
                      id_usuario int,
@@ -87,7 +90,7 @@ CONSTRAINT fk_detenvios_sucursalo FOREIGN KEY (id_sucursal_o) REFERENCES sucursa
 CONSTRAINT fk_detenvios_sucursald FOREIGN KEY (id_sucursal_d) REFERENCES sucursal(id_sucursal) ON DELETE CASCADE,
 CONSTRAINT fpk_detenvios PRIMARY KEY (id_producto, id_envio));
 
-CREATE TABLE venta_productos (id_venta_producto int PRIMARY KEY NOT NULL,
+CREATE TABLE venta_productos (id_venta_producto int PRIMARY KEY AUTO_INCREMENT NOT NULL,
                              id_usuario int,
                              fecha date NOT NULL,
                              nombre_cliente varchar(50),
