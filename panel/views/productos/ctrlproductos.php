@@ -3,6 +3,7 @@
     /* <!-- Estados de los que se alimenta la el Estado Ciudad --> */
 
         require_once('mdlproductos.php');
+        
         /* require_once('../categoria/mdlcategoria.php'); */
 
     /* <!--  Estados de los que se alimenta la el Estado Ciudad --> */
@@ -25,7 +26,7 @@
     /* <!-- Switch para ejecutar la accion correspondiente --> */
 
         switch($accion){
-
+            
             case 'new':
                 $datosEstados = $estado->read(); //incluimos la lectura de los datos Estados para que nos traiga todas las categorias esxitentes en la BD
                 require_once('formularioCiudad.php');
@@ -60,7 +61,6 @@
                 $resultado = $ciudad->delete($id_producto);
 
             default: 
-            $datosProductos = $producto->read();
             require_once('index.php');
         }
 
