@@ -39,17 +39,25 @@
             break;
 
             case 'modify':
+                /* se genera una variable "$datoscategoria" para obtener los datos de una categoria dependiendo su id declarondo el 
+                objeto en su metodo readOne y mandamos el id_categoria como para parametro*/
                 $datoscategoria = $categoria->readOne($id_categoria);
+                /* Si nos devuelve un arreglo entra al formulario para poderlo editar */
                 if(is_array($datoscategoria)){
                     require_once('formulariocategoria.php');
                 } else{
-                    require_once('formulariocategoria.php');
+                    require_once('index.php'); /* Si no nos devuelve un arreglo entra al index */
                     }
             break;
     
             case 'update':
+                /* Caso Update se genera unavariable "$datosFormulariocategoriaUP" para almacenar los datos que se modificaron de los
+                 atributo que se espesifico con el id mediante el formulario que se manda por $_POST*/
                 $datosFormulariocategoriaUP=$_POST;
+                /* Se manda a llamar el metodo de update del objeto categoria para relizar el update de los datos que anteriomente alamcenamos 
+                en la variable $datosFormulariocategoriaUP mandando esta comno parametro*/
                 $resultado = $categoria->update($datosFormulariocategoriaUP,$id_categoria);
+                /* Se vuelve a mostrar la lista de categorias actualizada */
                 $datoscategorias = $categoria->read();
                 require_once('index.php');
             break;
