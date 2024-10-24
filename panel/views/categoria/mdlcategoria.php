@@ -3,6 +3,7 @@
     require_once('../../sistema.php');
 
         class Categoria extends sistema{
+                //declaramos las variables qu utilizaremos que son cada atributo de la tabla sin contar las llaves foraneas
                 public $id_categoria;
                 public $nombre_categoria;
 

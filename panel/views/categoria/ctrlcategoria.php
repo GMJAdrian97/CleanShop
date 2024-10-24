@@ -21,10 +21,10 @@
         switch($accion){
             /* Case new es para hacdr una insersion en la tabla */
             case 'new':
-                /* Llama al formulario */
-                require_once('formulariocategoria.php');
                 /* Para obtener datos de llaves foraneas declarar una variable y llenarla mediate el metodo del objeto coreespondiente */
                 /* Ejemplo; $datosUnudadPeso = $unidadPeso->read(); */
+                /* Llama al formulario */
+                require_once('formulariosucursal.php');
             break;
 
             case 'add':
