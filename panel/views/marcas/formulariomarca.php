@@ -18,15 +18,15 @@
             <!-- Contenedror del formulario -->
             <div class="formulario-contenedor">
                 <!-- Encabezado del formulario -->
-                <h2><?php echo(isset($id_estado))? "MODIFICA TU ": "AÑADE UN NUEVO ";?>ESTADO</h2>
+                <h2><?php echo(isset($id_marca))? "MODIFICA TU ": "AÑADE UNA NUEVA ";?>MARCA</h2>
                  <!-- Inicio del formulario -->
                 <form method="POST"
-                    action="ctrlestado.php?accion=<?php echo(isset($id_estado))? "update&id_estado=".$id_estado: "add"; ?>"
+                    action="ctrlmarca.php?accion=<?php echo(isset($id_marca))? "update&id_marca=".$id_marca: "add"; ?>"
                     enctype="multipart/form-data">
                     <div class="formulario-grupo">
-                        <label for="nombre">Nombre del estado</label>
-                        <input type="text" id="nombre" name="nombre_estado" placeholder="Ejem; Guanajuato" required pattern="^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$"
-                        value="<?php echo(isset($id_estado)) ? $datosestado['nombre_estado']:"";?>">
+                        <label for="nombre">Nombre del marca</label>
+                        <input type="text" id="nombre" name="nombre_marca" placeholder="Ejem; Fabuloso" required pattern="^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9\s]+$"
+                        value="<?php echo(isset($id_marca)) ? $datosmarca['nombre_marca']:"";?>">
                     </div>
                     <button type="submit" class="formulario-boton">Enviar</button>
                 </form>
