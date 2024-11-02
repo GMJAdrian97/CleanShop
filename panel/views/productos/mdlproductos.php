@@ -116,60 +116,131 @@ class Productos extends sistema{
 
             public function read(){
                     $this->connect();
-                    $sql = "SELECT * FROM `productos";
+                    $sql = "SELECT * FROM productos";
                     $stmt = $this->con->prepare($sql);
                     $stmt->execute();
                     $datosProductos = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     return $datosProductos; 
             }
 
-            public function readOne($id_ciudad){
+            public function readOne($id_producto){
                     $this->connect();
-                    $sql = "SELECT c.id_ciudad,
-                                    c.nombre_ciudad,
-                                    e.nombre_estado as estado
-                            from ciudad c
-                            inner join estado e on e.id_estado = c.id_estado
-                            WHERE c.id_ciudad = :id_ciudad;";
+                    $sql = "SELECT p.id_producto,
+                                    p.nombre_producto,
+                                    p.img_producto,
+                                    p.descripcion_producto,
+                                    p.precio_adquisicion,
+                                    p.precio_menudeo,
+                                    p.precio_mayoreo,
+                                    p.precio_vip,
+                                    p.color_producto,
+                                    p.tipo_producto,
+                                    c.nombre_categoria AS categoria,
+                                    m.nombre_marca AS marca,
+                                    prov.nombre_proveedor AS proveedor,
+                                    s.nombre_sucursal As sucursal
+                                FROM productos p
+                                JOIN categoria c ON p.id_categoria = c.id_categoria
+                                JOIN marcas m ON p.id_marca = m.id_marca
+                                JOIN proveedores prov ON p.id_proveedor = prov.id_proveedor
+                                JOIN sucursal s ON p.id_sucursal = s.id_sucursal
+                                WHERE p.id_producto = :id_producto;";
                     $stmt = $this->con->prepare($sql);
-                    $stmt -> bindParam(':id_ciudad', $id_ciudad, PDO::PARAM_STR);
+                    $stmt -> bindParam(':id_producto', $id_producto, PDO::PARAM_INT);
                     $stmt->execute();
-                    $datosCiudad = $stmt->fetchAll(PDO::FETCH_ASSOC);
-                    $datosCiudad = (isset($datosCiudad[0]))?$datosCiudad[0]:null;
-                    return $datosCiudad;
+                    $datosProductos = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                    $datosProductos = (isset($datosProductos[0]))?$datosProductos[0]:null;
+                    return $datosProductos;
             }
 
-            public function create($datosFormularioCiudad){
+            public function create($datosFormularioProducto){
                     $this->connect();
-                    $sql = "INSERT INTO ciudad (nombre_ciudad,
-                                                 id_estado) 
-                                   VALUES        (:nombre_ciudad, 
-                                                 :id_estado);"; 
+                    $sql = "INSERT INTO productos (nombre_producto, 
+                                                    img_producto, 
+                                                    descripcion_producto, 
+                                                    precio_adquisicion, 
+                                                    precio_menudeo, 
+                                                    precio_mayoreo, 
+                                                    precio_vip, 
+                                                    color_producto, 
+                                                    tipo_producto, 
+                                                    id_categoria, 
+                                                    id_marca, 
+                                                    id_proveedor, 
+                                                    id_sucursal) 
+                                   VALUES        (:nombre_producto, 
+                                                    :img_producto, 
+                                                    :descripcion_producto, 
+                                                    :precio_adquisicion, 
+                                                    :precio_menudeo, 
+                                                    :precio_mayoreo, 
+                                                    :precio_vip, 
+                                                    :color_producto, 
+                                                    :tipo_producto, 
+                                                    :id_categoria, 
+                                                    :id_marca, 
+                                                    :id_proveedor, 
+                                                    :id_sucursal);"; 
                     $stmt = $this->con->prepare($sql);
-                    $stmt -> bindParam(':nombre_ciudad', $datosFormularioCiudad['nombre_ciudad'], PDO::PARAM_STR);
-                    $stmt -> bindParam(':id_estado', $datosFormularioCiudad['estado'], PDO::PARAM_INT);
+                    $stmt -> bindParam(':nombre_producto', $datosFormularioProducto['nombre_producto'], PDO::PARAM_STR);
+                    $stmt -> bindParam(':img_producto', $datosFormularioProducto['img_producto'], PDO::PARAM_INT);
+                    $stmt -> bindParam(':descripcion_producto', $datosFormularioProducto['descripcion_producto'], PDO::PARAM_STR);
+                    $stmt -> bindParam(':precio_adquisicion', $datosFormularioProducto['precio_adquisicion'], PDO::PARAM_STR);
+                    $stmt -> bindParam(':precio_menudeo', $datosFormularioProducto['precio_menudeo'], PDO::PARAM_STR);
+                    $stmt -> bindParam(':precio_mayoreo', $datosFormularioProducto['precio_mayoreo'], PDO::PARAM_STR);
+                    $stmt -> bindParam(':precio_vip', $datosFormularioProducto['precio_vip'], PDO::PARAM_STR);
+                    $stmt -> bindParam(':color_producto', $datosFormularioProducto['color_producto'], PDO::PARAM_STR);
+                    $stmt -> bindParam(':tipo_producto', $datosFormularioProducto['tipo_producto'], PDO::PARAM_STR);
+                    $stmt -> bindParam(':id_categoria', $datosFormularioProducto['id_categoria'], PDO::PARAM_INT);
+                    $stmt -> bindParam(':id_marca', $datosFormularioProducto['id_marca'], PDO::PARAM_INT);
+                    $stmt -> bindParam(':id_proveedor', $datosFormularioProducto['id_proveedor'], PDO::PARAM_INT);
+                    $stmt -> bindParam(':id_sucursal', $datosFormularioProducto['id_sucursal'], PDO::PARAM_INT);
                     $rs = $stmt->execute();
                     return  $stmt->rowCount();
             }
 
-            public function update($datosFormularioCiudadUP, $id_ciudad){
+            public function update($datosFormularioProductoUP, $id_producto){
                     $this->connect();
-                        $sql = "UPDATE ciudad SET nombre_ciudad = :nombre_ciudad, 
-                                                   id_estado = :id_estado
-                                    WHERE id_ciudad = :id_ciudad;";
+                        $sql = "UPDATE productos
+                                SET 
+                                    nombre_producto = :nombre_producto,
+                                    img_producto = :img_producto,
+                                    descripcion_producto = :descripcion_producto,
+                                    precio_adquisicion = :precio_adquisicion,
+                                    precio_menudeo = :precio_menudeo,
+                                    precio_mayoreo = :precio_mayoreo,
+                                    precio_vip = :precio_vip,
+                                    color_producto = :color_producto,
+                                    tipo_producto = :tipo_producto,
+                                    id_categoria = :id_categoria,
+                                    id_marca = :id_marca,
+                                    id_proveedor = :id_proveedor,
+                                    id_sucursal = :id_sucursal
+                                WHERE id_producto = :id_producto;";
                     $stmt = $this->con->prepare($sql);
-                    $stmt -> bindParam(':nombre_ciudad', $datosFormularioCiudadUP['nombre_ciudad'], PDO::PARAM_STR);
-                    $stmt -> bindParam(':id_estado', $datosFormularioCiudadUP['estado'], PDO::PARAM_INT);
-                    $stmt -> bindParam(':id_ciudad', $id_ciudad, PDO::PARAM_STR);
+                    $stmt -> bindParam(':nombre_producto', $datosFormularioProductoUP['nombre_producto'], PDO::PARAM_STR);
+                    $stmt -> bindParam(':img_producto', $datosFormularioProductoUP['img_producto'], PDO::PARAM_STR);
+                    $stmt -> bindParam(':descripcion_producto', $datosFormularioProductoUP['descripcion_producto'], PDO::PARAM_STR);
+                    $stmt -> bindParam(':precio_adquisicion', $datosFormularioProductoUP['precio_adquisicion'], PDO::PARAM_STR);
+                    $stmt -> bindParam(':precio_menudeo', $datosFormularioProductoUP['precio_menudeo'], PDO::PARAM_STR);
+                    $stmt -> bindParam(':precio_mayoreo', $datosFormularioProductoUP['precio_mayoreo'], PDO::PARAM_STR);
+                    $stmt -> bindParam(':precio_vip', $datosFormularioProductoUP['precio_vip'], PDO::PARAM_STR);
+                    $stmt -> bindParam(':color_producto', $datosFormularioProductoUP['color_producto'], PDO::PARAM_STR);
+                    $stmt -> bindParam(':tipo_producto', $datosFormularioProductoUP['tipo_producto'], PDO::PARAM_STR);
+                    $stmt -> bindParam(':id_categoria', $datosFormularioProductoUP['id_categoria'], PDO::PARAM_INT);
+                    $stmt -> bindParam(':id_marca', $datosFormularioProductoUP['id_marca'], PDO::PARAM_INT);
+                    $stmt -> bindParam(':id_proveedor', $datosFormularioProductoUP['id_proveedor'], PDO::PARAM_INT);
+                    $stmt -> bindParam(':id_sucursal', $datosFormularioProductoUP['id_sucursal'], PDO::PARAM_INT);
+                    $stmt -> bindParam(':id_producto', $id_producto, PDO::PARAM_INT);
                     $rs = $stmt->execute();
                     return  $stmt->rowCount();
             }
 
-            public function delete($id_ciudad){
+            public function delete($id_producto){
                     $this->connect();
-                    $sql = "DELETE FROM ciudad WHERE id_ciudad = :id_ciudad";
+                    $sql = "DELETE FROM productos WHERE id_producto = :id_producto";
                     $stmt = $this->con->prepare($sql);
-                    $stmt -> bindParam(':id_ciudad', $id_ciudad, PDO::PARAM_STR);
+                    $stmt -> bindParam(':id_producto', $id_producto, PDO::PARAM_STR);
                     $rs = $stmt->execute();
                     return $stmt->rowCount();
             }

@@ -7,9 +7,9 @@
   --page-header-bgColor-hover: #1d2636;
   --page-header-txtColor: #dde9f8;
   --page-header-headingColor: #7889a4;
-  --page-header-width: 220px;
-  --page-content-bgColor: #f0f1f6;
-  --page-content-txtColor: #171616;
+  --page-header-width: 188px;
+  --page-content-bgColor: #242e42;
+  --page-content-txtColor: #dde9f8;
   --page-content-blockColor: #fff;
   --white: #fff;
   --black: #333;
@@ -31,6 +31,7 @@
 
 ul {
   list-style: none;
+  padding-left: 0;
 }
 
 a,
@@ -77,6 +78,7 @@ body {
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
 .page-header {
   position: fixed;
+  /* border-radius: 10px;  *//* Redondea los bordes en píxeles */
   top: 0;
   left: 0;
   right: 0;
@@ -166,6 +168,7 @@ body {
 }
 
 .page-header .admin-menu .menu-heading h3 {
+  width: 100%;
   text-transform: uppercase;
   letter-spacing: 0.15em;
   font-size: 12px;
@@ -416,7 +419,7 @@ body {
 
 @media screen and (min-width: 768px) {
   .collapsed .page-header {
-    width: 40px;
+    width: 60px;
   }
 
   .collapsed .page-header .admin-menu li > * {
@@ -514,11 +517,12 @@ body {
 /* LIGHT MODE STYLES
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
 .light-mode {
-  --page-header-bgColor: #f1efec;
-  --page-header-bgColor-hover: #b9e4e0;
-  --page-header-txtColor: #2c303a;
-  --page-header-headingColor: #979595;
-  --page-content-bgColor: #fff;
+  --page-header-bgColor: linear-gradient(to right, #5473dd, #428ce0);
+  --page-header-bgColor-hover: #3ac9cf;
+  --page-header-txtColor: #ffffff;
+  --page-header-headingColor: #ffffff;
+  --page-content-txtColor: #000000;
+  --page-content-bgColor: #f6f6fb;
   --box-shadow: 0 0 10px -2px rgba(0, 0, 0, 0.25);
 }
 

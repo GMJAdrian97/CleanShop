@@ -10,13 +10,19 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
+    <!-- Icons Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
 
     <!------- CSS DashBoard ------->
     <link href="/CleanShop/css/dashstyle.css" rel="stylesheet" />
     <!-- CSS de DataTables 1.13.6 -->
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+    <!-- <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css"> -->
+    <link href="/CleanShop/css/styledatatables.css" rel="stylesheet" />
     <!-- CSS de formularios -->
     <link rel="stylesheet" href="/CleanShop/css/cssfomularios.css">
+    <!-- CSS de Login -->
+    <link rel="stylesheet" href="/CleanShop/css/login.css">
 
 
 
@@ -42,81 +48,116 @@
                     <h3>Admin</h3>
                 </li>
                 <li>
-                    <a href="#0">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                            class="bi bi-handbag-fill" viewBox="0 0 16 16">
-                            <path
-                                d="M8 1a2 2 0 0 0-2 2v2H5V3a3 3 0 1 1 6 0v2h-1V3a2 2 0 0 0-2-2M5 5H3.36a1.5 1.5 0 0 0-1.483 1.277L.85 13.13A2.5 2.5 0 0 0 3.322 16h9.355a2.5 2.5 0 0 0 2.473-2.87l-1.028-6.853A1.5 1.5 0 0 0 12.64 5H11v1.5a.5.5 0 0 1-1 0V5H6v1.5a.5.5 0 0 1-1 0z" />
-                        </svg>
+                    <a href="/CleanShop/panel/views/productos/ctrlproductos.php">
+                        <i class="bi bi bi-people-fill" style="font-size: 20px; margin-right: 10px;"></i>
+                        <span>Usuarios</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/CleanShop/panel/views/marcas/ctrlmarca.php">
+                        <i class="bi bi-person-vcard" style="font-size: 20px; margin-right: 10px;"></i>
+                        <span>Roles</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/CleanShop/panel/views/calidad/ctrlcalidad.php">
+                        <i class="bi bi-person-fill-up" style="font-size: 20px; margin-right: 10px;"></i>
+                        <span>Asignacion de rol</span>
+                    </a>
+                </li>
+                <li class="menu-heading">
+                    <h3>Productos</h3>
+                </li>
+                <li>
+                    <a href="/CleanShop/panel/views/productos/ctrlproductos.php">
+                        <i class="bi bi-bag-fill" style="font-size: 20px; margin-right: 10px;"></i>
                         <span>Productos</span>
                     </a>
                 </li>
                 <li>
-                    <a href="#0">
-                        <svg>
-                            <use xlink:href="#users"></use>
-                        </svg>
-                        <span>Users</span>
+                    <a href="/CleanShop/panel/views/marcas/ctrlmarca.php">
+                        <i class="bi bi-award-fill" style="font-size: 20px; margin-right: 10px;"></i>
+                        <span>Marcas</span>
                     </a>
                 </li>
                 <li>
-                    <a href="#0">
-                        <svg>
-                            <use xlink:href="#trends"></use>
-                        </svg>
-                        <span>Trends</span>
+                    <a href="/CleanShop/panel/views/calidad/ctrlcalidad.php">
+                        <i class="bi bi-check2" style="font-size: 20px; margin-right: 10px;"></i>
+                        <span>Calidad</span>
                     </a>
                 </li>
                 <li>
-                    <a href="#0">
-                        <svg>
-                            <use xlink:href="#collection"></use>
-                        </svg>
-                        <span>Collection</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="#0">
-                        <svg>
-                            <use xlink:href="#comments"></use>
-                        </svg>
-                        <span>Comments</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="#0">
-                        <svg>
-                            <use xlink:href="#appearance"></use>
-                        </svg>
-                        <span>Appearance</span>
+                    <a href="/CleanShop/panel/views/proveedores/ctrlproveedor.php">
+                        <i class="bi bi-truck" style="font-size: 20px; margin-right: 10px;"></i>
+                        <span>Proveedores</span>
                     </a>
                 </li>
                 <li class="menu-heading">
-                    <h3>Settings</h3>
+                    <h3>Sucursales</h3>
+                </li>
+                <li>
+                    <a href="/CleanShop/panel/views/municipio/ctrlmunicipio.php">
+                        <i class="bi bi-buildings" style="font-size: 20px; margin-right: 10px;"></i>
+                        <span>Ciudad</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/CleanShop/panel/views/estado/ctrlestado.php">
+                        <i class="bi bi-map-fill" style="font-size: 20px; margin-right: 10px;"></i>
+                        <span>Estado</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/CleanShop/panel/views/sucursal/ctrlsucursal.php">
+                        <i class="bi bi-shop" style="font-size: 20px; margin-right: 10px;"></i>
+                        <span>Sucursales</span>
+                    </a>
+                </li>
+                <li class="menu-heading">
+                    <h3>Envios</h3>
                 </li>
                 <li>
                     <a href="#0">
-                        <svg>
-                            <use xlink:href="#settings"></use>
-                        </svg>
-                        <span>Settings</span>
+                        <i class="bi bi-send-fill" style="font-size: 20px; margin-right: 10px;"></i>
+                        <span>Enviar</span>
                     </a>
                 </li>
                 <li>
                     <a href="#0">
-                        <svg>
-                            <use xlink:href="#options"></use>
-                        </svg>
-                        <span>Options</span>
+                        <i class="bi bi-filetype-pdf"" style="font-size: 20px; margin-right: 10px;"></i>
+                        <span>Comprobantes</span>
                     </a>
                 </li>
                 <li>
                     <a href="#0">
-                        <svg>
-                            <use xlink:href="#charts"></use>
-                        </svg>
-                        <span>Charts</span>
+                        <i class="bi bi-journal-bookmark-fill" style="font-size: 20px; margin-right: 10px;"></i>
+                        <span>Historial</span>
                     </a>
+                </li>
+                <li class="menu-heading">
+                    <h3>Ventas</h3>
+                </li>
+                </li>
+                <li>
+                    <a href="#0">
+                        <i class="bi bi-basket2" style="font-size: 20px; margin-right: 10px;"></i>
+                        <span>Realizar Ventas</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#0">
+                        <i class="bi bi-filetype-pdf" style="font-size: 20px; margin-right: 10px;"></i>
+                        <span>Comprobantes</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#0">
+                        <i class="bi bi-journal-bookmark-fill" style="font-size: 20px; margin-right: 10px;"></i>
+                        <span>Historial</span>
+                    </a>
+                </li>
+                <li class="menu-heading">
+                    <h3>Ajustes</h3>
                 </li>
                 <li>
                     <div class="switch">
@@ -127,11 +168,15 @@
                         </label>
                     </div>
                     <button class="collapse-btn" aria-expanded="true" aria-label="collapse menu">
-                        <svg aria-hidden="true">
-                            <use xlink:href="#collapse"></use>
-                        </svg>
-                        <span>Collapse</span>
+                        <i class="bi bi-arrows-collapse-vertical" style="font-size: 20px; margin-right: 10px;"></i>
+                        <span>Colapsar</span>
                     </button>
+                </li>
+                <li>
+                    <a href="/CleanShop/panel/views/login/ctrllogin.php?action=Logout1">
+                        <i class="bi bi-box-arrow-in-left" style="font-size: 20px; margin-right: 10px;"></i>
+                        <span>Cerrar Sesion</span>
+                    </a>
                 </li>
             </ul>
         </nav>
